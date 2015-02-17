@@ -8,7 +8,8 @@
 #include "ListArray.h"
 
 template < typename DataType>
-List<DataType>::List(int maxNumber){
+
+List List<DataType>::List(int maxNumber){
 	int maxSize = maxNumber;
 	int size = 0;
 	int cursor = -1; //If it breaks....John's fault. :)
@@ -17,7 +18,7 @@ List<DataType>::List(int maxNumber){
 }
 
 template < typename DataType>
-List<DataType>::List(const List& source){
+List List<DataType>::List(const List& source){
 	int maxSize = source.maxSize;
 	int size = source.size;
 	int cursor = source.cursor;
@@ -48,7 +49,7 @@ virtual List<DataType>::~List(){
 template < typename DataType>
 virtual void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
 	if(cursor > maxSize){
-		throw logic_error("Not Enough Space");
+		throw logic_error("Not enough space");
 	}else if(size == 0){
 		dataItems[0] = newDataItem;
 		cursor++;
@@ -62,15 +63,31 @@ virtual void List<DataType>::insert(const DataType& newDataItem) throw (logic_er
 
 template < typename DataType>
 void List<DataType>::remove () throw ( logic_error ){
-
+	if(size == 0){
+		throw logic_error("Nothing to delete.");
+	} else {
+		dataItems[cursor] = 0;
+		cursor--;
+		size--;
+	}
 }
 
 template < typename DataType>
 virtual void List<DataType>::replace(const DataType& newDataItem) throw (logic_error){
-
+	if(size == 0){
+		throw logic_error("Nothing to replace.");
+	} else {
+		dataItems[cursor] = newDataItem;
+	}
 }
 
 template < typename DataType>
 void List<DataType>::clear(){
+	int s = cursor;
 
+	for(int x = s; x <= 0; x--){
+		dataItems[x] = 0;
+	}
+	size = 0;
+	cursor = 0;
 }

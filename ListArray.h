@@ -70,7 +70,7 @@ class List
     int maxSize,
         size,             // Actual number of data item in the list
         cursor;           // Cursor array index
-    DataType* dataItems;  // Array containing the list data item
+    DataType *dataItems;  // Array containing the list data item
 };
 
 #endif

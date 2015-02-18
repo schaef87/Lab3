@@ -8,26 +8,25 @@
 #include "ListArray.h"
 
 template < typename DataType>
-
-List List<DataType>::List(int maxNumber){
+List<DataType>::List(int maxNumber){
 	int maxSize = maxNumber;
 	int size = 0;
 	int cursor = -1; //If it breaks....John's fault. :)
 
-	DataType* dataItems;
+	dataItems = new DataType[maxSize];
 }
 
 template < typename DataType>
-List List<DataType>::List(const List& source){
+List<DataType>::List(const List& source){
 	int maxSize = source.maxSize;
 	int size = source.size;
 	int cursor = source.cursor;
 
-	DataType* dataItems;
+	dataItems = source.dataItems;
 }
 
 template < typename DataType>
-List& List<DataType>::operator= ( const List& source ){
+List& List<DataType>::operator= (const List& source){
 	if(maxSize != source.maxSize){
 		maxSize = source.maxSize;
 		size = source.size;
@@ -40,10 +39,10 @@ List& List<DataType>::operator= ( const List& source ){
 
 template < typename DataType>
 virtual List<DataType>::~List(){
-	delete maxSize;
-	delete size;
-	delete cursor;
 	delete dataItems;
+//	maxSize = 0;
+//	size = 0;
+//	cursor = 0;
 }
 
 template < typename DataType>

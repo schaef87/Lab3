@@ -9,24 +9,24 @@
 
 template < typename DataType>
 List<DataType>::List(int maxNumber){
-	maxSize = maxNumber;
-	size = 0;
-	cursor = -1; //If it breaks....John's fault. :)
+	int maxSize = maxNumber;
+	int size = 0;
+	int cursor = -1; //If it breaks....John's fault. :)
 
-	dataItems = new DataType[maxNumber];
+	DataType* dataItems;
 }
 
 template < typename DataType>
 List<DataType>::List(const List& source){
-	maxSize = source.maxSize;
-	size = source.size;
-	cursor = source.cursor;
+	int maxSize = source.maxSize;
+	int size = source.size;
+	int cursor = source.cursor;
 
-	dataItems = source.dataItems;
+	DataType* dataItems;
 }
 
 template < typename DataType>
-List<DataType>& List<DataType>::operator= ( const List& source ){
+List& List<DataType>::operator= ( const List& source ){
 	if(maxSize != source.maxSize){
 		maxSize = source.maxSize;
 		size = source.size;
@@ -38,15 +38,15 @@ List<DataType>& List<DataType>::operator= ( const List& source ){
 }
 
 template < typename DataType>
-List<DataType>::~List(){
-	maxSize = 0;
-	size = 0;
-	cursor = 0;
+virtual List<DataType>::~List(){
+	delete maxSize;
+	delete size;
+	delete cursor;
 	delete dataItems;
 }
 
 template < typename DataType>
-void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
+virtual void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
 	if(cursor > maxSize){
 		throw logic_error("Not Enough Space");
 	}else if(size == 0){
@@ -62,33 +62,15 @@ void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
 
 template < typename DataType>
 void List<DataType>::remove () throw ( logic_error ){
-	if(size == 0){
-		throw logic_error("Nothing to delete.");
-	} else {
-		dataItems[cursor] = 0;
-		cursor--;
-		size--;
-	}
+
 }
 
 template < typename DataType>
-void List<DataType>::replace(const DataType& newDataItem) throw (logic_error){
-	if(size == 0){
-		throw logic_error("Nothing to replace.");
-	} else {
-		dataItems[cursor] = newDataItem;
-	}
+virtual void List<DataType>::replace(const DataType& newDataItem) throw (logic_error){
+
 }
 
 template < typename DataType>
 void List<DataType>::clear(){
-	if(size > 0){
-		int s = size;
 
-		for(int x = s; x >= 0; x--){
-			dataItems[x] = 0;
-		}
-		size = 0;
-		cursor = 0;
-	}
 }

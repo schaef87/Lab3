@@ -15,7 +15,8 @@ List<DataType>::List(const List& source){
 	size = source.size;
 	cursor = source.cursor;
 
-	dataItems = source.dataItems;
+	dataItems = new DataType[maxSize];
+	*dataItems = *source.dataItems;
 }
 
 template < typename DataType>
@@ -25,6 +26,8 @@ List<DataType>& List<DataType>::operator= ( const List& source ){
 		maxSize = source.maxSize;
 		size = source.size;
 	}
+
+	return *this;
 }
 
 template < typename DataType>
@@ -39,8 +42,7 @@ template < typename DataType>
 void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
 	if(cursor > maxSize){
 		throw logic_error("Not Enough Space");
-		throw logic_error("Not enough space");
-	}else if(size == 0){
+	} else {
 		dataItems[cursor] = newDataItem;
 		cursor++;
 	}
@@ -147,17 +149,57 @@ DataType List<DataType>::getCursor() const throw(logic_error){
 	}
 }
 
-template < typename DataType>
-void List<DataType>::showStructure () const{
-	cout << "Max size: " << maxSize << endl;
-	cout << "Actual size: " << size << endl;
-	cout << "Cursor position: " << cursor << endl;
-	cout << "Data: " << endl;
+template <typename DataType>
+void List<DataType>:: showStructure () const
 
-	for(int x = 0; 0 <= size; x++){
-		cout << dataItems[x] << endl;
-	}
+// outputs the data items in a list. if the list is empty, outputs
+// "empty list". this operation is intended for testing/debugging
+// purposes only.
+
+{
+    int j;   // loop counter
+
+    if ( size == 0 )
+       cout << "empty list" << endl;
+// The Ordered List code blows up below. Since this is just debugging
+// code, we check for whether the OrderedList is defined, and if so,
+// print out the key value. If not, we try printing out the entire item.
+// Note: This assumes that you have used the double-inclusion protection
+// in your OrderedList.cpp file by doing a "#ifndef ORDEREDLIST_CPP", etc.
+// If not, you will need to comment out the code in the section under
+// the "else", otherwise the compiler will go crazy in lab 4.
+// The alternative is to overload operator<< for all data types used in
+// the ordered list.
+    else
+    {
+       cout << "size = " << size
+            <<  "   cursor = " << cursor << endl;
+       for ( j = 0 ; j < maxSize ; j++ )
+           cout << j << "\t";
+       cout << endl;
+       for ( j = 0 ; j < size ; j++ ) {
+	   if( j == cursor ) {
+	      cout << "[";
+              cout << dataItems[j]
+#ifdef ORDEREDLIST_CPP
+	      .getKey()
+#endif
+	      ;
+	      cout << "]";
+ 	      cout << "\t";
+	   }
+	   else
+	      cout << dataItems[j]
+#ifdef ORDEREDLIST_CPP
+	      .getKey()
+#endif
+	      << "\t";
+       }
+       cout << endl;
+    }
 }
+
+
 
 //template < typename DataType>
 //void moveToNth(int n) throw (logic_error){

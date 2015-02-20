@@ -4,7 +4,7 @@ template < typename DataType>
 List<DataType>::List(int maxNumber){
 	maxSize = maxNumber;
 	size = 0;
-	cursor = -1; //If it breaks....John's fault. :)
+	cursor = -1;
 
 	dataItems = new DataType[maxSize];
 }
@@ -16,7 +16,11 @@ List<DataType>::List(const List& source){
 	cursor = source.cursor;
 
 	dataItems = new DataType[maxSize];
-	*dataItems = *source.dataItems;
+
+	for(int x = 0; x <= source.size; x++){
+		dataItems[x] = source.dataItems[x];
+	}
+	//*dataItems = *source.dataItems;
 }
 
 template < typename DataType>
@@ -40,11 +44,22 @@ List<DataType>::~List(){
 
 template < typename DataType>
 void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
-	if(cursor > maxSize){
+	if(size >= maxSize){
 		throw logic_error("Not Enough Space");
 	} else {
+		int cDiff = size - cursor;
+		int cTrack = size - 1;
+		int mTrack = size;
+
+		if(cDiff >= 1){
+			for(int x = cursor; x < size; x++){
+				dataItems[mTrack] = dataItems[cTrack];
+				cTrack--;
+				mTrack--;
+			}
+		}
+
 		dataItems[cursor] = newDataItem;
-		cursor++;
 	}
 }
 
@@ -149,6 +164,10 @@ DataType List<DataType>::getCursor() const throw(logic_error){
 	}
 }
 
+
+//*********************************************
+//                Supplied Method
+//*********************************************
 template <typename DataType>
 void List<DataType>:: showStructure () const
 
@@ -199,7 +218,12 @@ void List<DataType>:: showStructure () const
     }
 }
 
+//*********************************************
+//               END - Supplied Method
+//*********************************************
 
+
+//  TESTING FOR MYSELF
 
 //template < typename DataType>
 //void moveToNth(int n) throw (logic_error){

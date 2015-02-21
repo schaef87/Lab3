@@ -29,6 +29,9 @@ List<DataType>& List<DataType>::operator= ( const List& source ){
 	if(maxSize != source.maxSize){
 		maxSize = source.maxSize;
 		size = source.size;
+		for(int x = 0; x <= source.size; x++){
+			dataItems[x] = source.dataItems[x];
+		}
 	}
 
 	return *this;
@@ -38,7 +41,7 @@ template < typename DataType>
 List<DataType>::~List(){
 	maxSize = 0;
 	size = 0;
-	cursor = 0;
+	cursor = -1;
 	delete dataItems;
 }
 
@@ -47,31 +50,39 @@ void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
 	if(size >= maxSize){
 		throw logic_error("Not Enough Space");
 	} else {
-		int cDiff = size - cursor;
 		int cTrack = size - 1;
 		int mTrack = size;
 
-		if(cDiff >= 1){
-			for(int x = cursor; x < size; x++){
+		if(size != 0){
+			for(int x = size; x > cursor; x--){
 				dataItems[mTrack] = dataItems[cTrack];
 				cTrack--;
 				mTrack--;
 			}
+			dataItems[cursor + 1] = newDataItem;
+		} else {
+			dataItems[0] = newDataItem;
 		}
-
-		dataItems[cursor] = newDataItem;
+		cursor++;
+		size++;
 	}
+
+
 }
+
 
 template < typename DataType>
 void List<DataType>::remove () throw ( logic_error ){
-
 	if(size == 0){
 		throw logic_error("Nothing to delete.");
 	} else {
-		dataItems[cursor] = 0;
-		cursor--;
+		for(int x = cursor; x <= size; x++){
+			dataItems[x] = dataItems[x + 1];
+		}
 		size--;
+		if(size == cursor){
+			cursor = 0;
+		}
 	}
 }
 
@@ -126,8 +137,8 @@ void List<DataType>::gotoBeginning() throw (logic_error){
 
 template < typename DataType>
 void List<DataType>::gotoEnd() throw (logic_error){
-	if(cursor != maxSize){
-		cursor = maxSize;
+	if(size != 0){
+		cursor = size - 1;
 	} else {
 		throw logic_error("Already at the end.");
 	}
@@ -176,46 +187,46 @@ void List<DataType>:: showStructure () const
 // purposes only.
 
 {
-    int j;   // loop counter
+	int j;   // loop counter
 
-    if ( size == 0 )
-       cout << "empty list" << endl;
-// The Ordered List code blows up below. Since this is just debugging
-// code, we check for whether the OrderedList is defined, and if so,
-// print out the key value. If not, we try printing out the entire item.
-// Note: This assumes that you have used the double-inclusion protection
-// in your OrderedList.cpp file by doing a "#ifndef ORDEREDLIST_CPP", etc.
-// If not, you will need to comment out the code in the section under
-// the "else", otherwise the compiler will go crazy in lab 4.
-// The alternative is to overload operator<< for all data types used in
-// the ordered list.
-    else
-    {
-       cout << "size = " << size
-            <<  "   cursor = " << cursor << endl;
-       for ( j = 0 ; j < maxSize ; j++ )
-           cout << j << "\t";
-       cout << endl;
-       for ( j = 0 ; j < size ; j++ ) {
-	   if( j == cursor ) {
-	      cout << "[";
-              cout << dataItems[j]
+	if ( size == 0 )
+		cout << "empty list" << endl;
+	// The Ordered List code blows up below. Since this is just debugging
+	// code, we check for whether the OrderedList is defined, and if so,
+	// print out the key value. If not, we try printing out the entire item.
+	// Note: This assumes that you have used the double-inclusion protection
+	// in your OrderedList.cpp file by doing a "#ifndef ORDEREDLIST_CPP", etc.
+	// If not, you will need to comment out the code in the section under
+	// the "else", otherwise the compiler will go crazy in lab 4.
+	// The alternative is to overload operator<< for all data types used in
+	// the ordered list.
+	else
+	{
+		cout << "size = " << size
+				<<  "   cursor = " << cursor << endl;
+		for ( j = 0 ; j < maxSize ; j++ )
+			cout << j << "\t";
+		cout << endl;
+		for ( j = 0 ; j < size ; j++ ) {
+			if( j == cursor ) {
+				cout << "[";
+				cout << dataItems[j]
 #ifdef ORDEREDLIST_CPP
-	      .getKey()
+								  .getKey()
 #endif
-	      ;
-	      cout << "]";
- 	      cout << "\t";
-	   }
-	   else
-	      cout << dataItems[j]
+								  ;
+				cout << "]";
+				cout << "\t";
+			}
+			else
+				cout << dataItems[j]
 #ifdef ORDEREDLIST_CPP
-	      .getKey()
+								  .getKey()
 #endif
-	      << "\t";
-       }
-       cout << endl;
-    }
+								  << "\t";
+		}
+		cout << endl;
+	}
 }
 
 //*********************************************

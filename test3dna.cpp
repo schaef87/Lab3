@@ -89,22 +89,28 @@ void countBases (List<char> &dnaSequence,int &aCount,int &cCount,int &tCount,int
 	tCount = 0;
 	gCount = 0;
 
+	if(dnaSequence.cursor != 0){
+		dnaSequence.gotoBeginning();
+	}
+
 	do{
 		input = dnaSequence.getCursor();
 
 		cout << input << endl;
 
-//		if(input == 'a' || 'A'){
-//			aCount++;
-//		} else if(input == 'c' || 'C'){
-//			cCount++;
-//		} else if(input == 't' || 'T'){
-//			tCount++;
-//		} else if(input == 'g' || 'G'){
-//			gCount++;
-//		} else {
-//			cout << "Invalid sequence";
-//			break;
-//		}
-	} while(dnaSequence.gotoNext());
+		if(input == 'a' || 'A'){
+			aCount++;
+		} else if(input == 'c' || 'C'){
+			cCount++;
+		} else if(input == 't' || 'T'){
+			tCount++;
+		} else if(input == 'g' || 'G'){
+			gCount++;
+		} else {
+			cout << "Invalid sequence";
+			break;
+		}
+	}while(dnaSequence.gotoNext());
+
+	cout << endl << "************************" << "Operation complete" << endl << "************************" << endl;
 }

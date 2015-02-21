@@ -83,12 +83,28 @@ int main ()
 //  Insert your countBases function below.
 //
 void countBases (List<char> &dnaSequence,int &aCount,int &cCount,int &tCount,int &gCount){
+	char input;
 	aCount = 0;
 	cCount = 0;
 	tCount = 0;
 	gCount = 0;
 
-	while(dnaSequence.gotoNext()){
+	do{
+		input = dnaSequence.getCursor();
 
-	}
+		cout << input << endl;
+
+//		if(input == 'a' || 'A'){
+//			aCount++;
+//		} else if(input == 'c' || 'C'){
+//			cCount++;
+//		} else if(input == 't' || 'T'){
+//			tCount++;
+//		} else if(input == 'g' || 'G'){
+//			gCount++;
+//		} else {
+//			cout << "Invalid sequence";
+//			break;
+//		}
+	} while(dnaSequence.gotoNext());
 }

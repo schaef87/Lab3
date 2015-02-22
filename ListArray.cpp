@@ -131,7 +131,7 @@ bool List<DataType>::isFull() const{  //Member not found???
 
 template < typename DataType>
 void List<DataType>::gotoBeginning() throw (logic_error){
-	if(cursor != 0){
+	if(cursor != -1){
 		cursor = 0;
 	} else {
 		throw logic_error("Already at the beginning.");
@@ -149,16 +149,14 @@ void List<DataType>::gotoEnd() throw (logic_error){
 
 template < typename DataType>
 bool List<DataType>::gotoNext() throw (logic_error){
-	cout << "Cursor position: " << cursor << endl;
-	if(cursor == size){
+	if(cursor == size ){
 		throw logic_error("Cannot go to next, already at the end.");
 		return false;
-	} else if(cursor == size - 1){
-		cursor++;
-		return false;
-	} else {
+	} else if(cursor != size - 1){
 		cursor++;
 		return true;
+	} else {
+		return false;
 	}
 }
 

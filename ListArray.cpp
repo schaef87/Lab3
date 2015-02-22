@@ -47,14 +47,15 @@ List<DataType>::~List(){
 
 template < typename DataType>
 void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
-	if(size >= maxSize){
+	if(this->isFull()){
 		throw logic_error("Not Enough Space");
 	} else {
 		int cTrack = size - 1;
 		int mTrack = size;
 
 		if(size != 0){
-			for(int x = size; x > cursor; x--){
+//			for(int x = size; x > cursor; x--){
+			for(int x = size; x > cursor + 1; x--){
 				dataItems[mTrack] = dataItems[cTrack];
 				cTrack--;
 				mTrack--;
@@ -76,7 +77,8 @@ void List<DataType>::remove () throw ( logic_error ){
 	if(size == 0){
 		throw logic_error("Nothing to delete.");
 	} else {
-		for(int x = cursor; x <= size; x++){
+		for(int x = cursor;
+				x <= size; x++){
 			dataItems[x] = dataItems[x + 1];
 		}
 		size--;
@@ -128,8 +130,8 @@ bool List<DataType>::isFull() const{  //Member not found???
 
 template < typename DataType>
 void List<DataType>::gotoBeginning() throw (logic_error){
-	if(cursor != 0){
-		cursor = 0;
+	if(cursor != -1){
+		cursor = -1;
 	} else {
 		throw logic_error("Already at the beginning.");
 	}
@@ -146,7 +148,7 @@ void List<DataType>::gotoEnd() throw (logic_error){
 
 template < typename DataType>
 bool List<DataType>::gotoNext() throw (logic_error){
-	if(cursor == maxSize){
+	if(cursor == size - 1){
 		throw logic_error("Cannot go to next, already at the end.");
 		return false;
 	} else {
@@ -157,7 +159,7 @@ bool List<DataType>::gotoNext() throw (logic_error){
 
 template < typename DataType>
 bool List<DataType>::gotoPrior() throw (logic_error){
-	if(cursor == maxSize){
+	if(cursor == 0){
 		throw logic_error("Cannot go back, already at the beginning.");
 		return false;
 	} else {
@@ -168,8 +170,8 @@ bool List<DataType>::gotoPrior() throw (logic_error){
 
 template < typename DataType>
 DataType List<DataType>::getCursor() const throw(logic_error){
-	if(dataItems[cursor] == 0){
-		throw ("There is nothing to retrieve.");
+	if(cursor < 0){
+		throw ("Nothing to retrieve.");
 	} else {
 		return dataItems[cursor];
 	}

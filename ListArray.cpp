@@ -62,10 +62,8 @@ void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
 				mTrack--;
 			}
 			dataItems[cursor + 1] = newDataItem;
-			cout << "Inserted new item" << endl;
 		} else {
 			dataItems[0] = newDataItem;
-			cout << "Added first element." << endl;
 		}
 		cursor++;
 		size++;
@@ -133,8 +131,8 @@ bool List<DataType>::isFull() const{  //Member not found???
 
 template < typename DataType>
 void List<DataType>::gotoBeginning() throw (logic_error){
-	if(cursor != -1){
-		cursor = -1;
+	if(cursor != 0){
+		cursor = 0;
 	} else {
 		throw logic_error("Already at the beginning.");
 	}
@@ -151,8 +149,12 @@ void List<DataType>::gotoEnd() throw (logic_error){
 
 template < typename DataType>
 bool List<DataType>::gotoNext() throw (logic_error){
-	if(cursor == size - 1){
+	cout << "Cursor position: " << cursor << endl;
+	if(cursor == size){
 		throw logic_error("Cannot go to next, already at the end.");
+		return false;
+	} else if(cursor == size - 1){
+		cursor++;
 		return false;
 	} else {
 		cursor++;
@@ -162,7 +164,7 @@ bool List<DataType>::gotoNext() throw (logic_error){
 
 template < typename DataType>
 bool List<DataType>::gotoPrior() throw (logic_error){
-	if(cursor == 0){
+	if(cursor == -1){
 		throw logic_error("Cannot go back, already at the beginning.");
 		return false;
 	} else {

@@ -66,8 +66,12 @@ int main ()
 	}
 
 	// Count the number of times that each base occurs.
-
+try{
 	countBases(dnaSequence,aCount,cCount,tCount,gCount);
+}
+catch (char* szMsg){
+	cout << "Error: " << szMsg << endl;
+}
 
 	// Output the totals.
 
@@ -96,7 +100,7 @@ void countBases (List<char> &dnaSequence,int &aCount,int &cCount,int &tCount,int
 	do{
 		input = dnaSequence.getCursor();
 
-		cout << input << endl;
+		cout << input << endl; //REMOVE ONCE FINISHED!!
 
 		if(input == 'a' || 'A'){
 			aCount++;

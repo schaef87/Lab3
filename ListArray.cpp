@@ -56,13 +56,16 @@ void List<DataType>::insert(const DataType& newDataItem) throw (logic_error){
 		if(size != 0){
 //			for(int x = size; x > cursor; x--){
 			for(int x = size; x > cursor + 1; x--){
+				cout << "dataItems[" << mTrack << "] = dataitems[" << cTrack << "];" <<endl;
 				dataItems[mTrack] = dataItems[cTrack];
 				cTrack--;
 				mTrack--;
 			}
 			dataItems[cursor + 1] = newDataItem;
+			cout << "Inserted new item" << endl;
 		} else {
 			dataItems[0] = newDataItem;
+			cout << "Added first element." << endl;
 		}
 		cursor++;
 		size++;

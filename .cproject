@@ -40,11 +40,11 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="cdt.managedbuild.config.gnu.mingw.exe.debug.930330371.1884803613" name="test3.cpp" rcbsApplicability="disable" resourcePath="test3.cpp" toolsToInvoke="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1134805124.468523384">
-						<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1134805124.468523384" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1134805124"/>
+					<fileInfo id="cdt.managedbuild.config.gnu.mingw.exe.debug.930330371.187914841" name="test3dna.cpp" rcbsApplicability="disable" resourcePath="test3dna.cpp" toolsToInvoke="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1134805124.68327916">
+						<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1134805124.68327916" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1134805124"/>
 					</fileInfo>
 					<sourceEntries>
-						<entry excluding="test3dna.cpp|sumintegers.cpp|show3.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="test3.cpp|sumintegers.cpp|show3.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
